@@ -2,7 +2,8 @@
 
 namespace Grocery.Core.Interfaces.Services
 {
-    public interface ICategoryService
+
+    public interface ICategoryService : IService<Category>
     {
     }
 }

@@ -8,11 +8,15 @@ namespace Grocery.Core.Models
         public int stock;
         public DateOnly ShelfLife { get; set; }
         public double Price { get; set; }
-        public Product(int id, string name, int stock, double price) : this(id, name, stock, default, price) { }
+        public int CategoryId { get; set; }
+        public Category? Category { get; set; }
 
-        public Product(int id, string name, int stock, DateOnly shelfLife, double price) : base(id, name)
+        public Product(int id, string name, int stock, int categoryId, double price) : this(id, name, stock, categoryId, default, price) { }
+
+        public Product(int id, string name, int stock, int categoryId, DateOnly shelfLife, double price) : base(id, name)
         {
             Stock = stock;
+            CategoryId = categoryId;
             ShelfLife = shelfLife;
             Price = price;
         }
