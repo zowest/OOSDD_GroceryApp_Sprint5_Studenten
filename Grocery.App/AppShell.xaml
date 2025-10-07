@@ -17,5 +17,11 @@
         <Tab Title="Meest verkocht" Icon="investment.png">
             <ShellContent Title="Meest verkochte producten" ContentTemplate="{DataTemplate local:BestSellingProductsView}" />
         </Tab>
+        <Tab Title="Categorieën" Icon="categories.png">
+            <ShellContent Title="Categorieën" ContentTemplate="{DataTemplate local:CategoryView}" />
+        </Tab>
+        <Tab Title="Gekocht" Icon="bought.png">
+            <ShellContent Title="Gekocht" ContentTemplate="{DataTemplate local:BoughtProductsView}" />
+        </Tab>
     </TabBar>
 </Shell>

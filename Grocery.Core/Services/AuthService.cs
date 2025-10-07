@@ -4,13 +4,10 @@ using Grocery.Core.Models;
 
 namespace Grocery.Core.Services
 {
-    public class AuthService : IAuthService
+    public class AuthService(IClientService clientService) : IAuthService
     {
-        private readonly IClientService _clientService;
-        public AuthService(IClientService clientService)
-        {
-            _clientService = clientService;
-        }
+        private readonly IClientService _clientService = clientService;
+
         public Client? Login(string email, string password)
         {
             Client? client = _clientService.Get(email);
