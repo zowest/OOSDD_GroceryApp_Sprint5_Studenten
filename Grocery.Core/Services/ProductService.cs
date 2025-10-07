@@ -4,14 +4,9 @@ using Grocery.Core.Models;
 
 namespace Grocery.Core.Services
 {
-    public class ProductService : IProductService
+    public class ProductService(IProductRepository productRepository) : IProductService
     {
-        private readonly IProductRepository _productRepository;
-
-        public ProductService(IProductRepository productRepository)
-        {
-            _productRepository = productRepository;
-        }
+        private readonly IProductRepository _productRepository = productRepository;
 
         public List<Product> GetAll()
         {

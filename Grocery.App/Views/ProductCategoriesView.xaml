@@ -2,15 +2,25 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Grocery.App.Views.ProductCategoriesView"
-             Title="Producten">
-    <CollectionView ItemsSource="{Binding Products}" SelectionMode="Single" SelectedItem="{Binding SelectedProduct}">
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <Grid Padding="8" ColumnDefinitions="Auto,*">
-                    <Label Text="{Binding Name}" FontAttributes="Bold" />
-                    <Label Grid.Column="1" Text="{Binding Stock}" HorizontalTextAlignment="End" />
-                </Grid>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+             Title="{Binding Title}">
+    <VerticalStackLayout Padding="12" Spacing="8">
+        <Label Text="{Binding Category.Name}"
+               FontSize="24"
+               FontAttributes="Bold"
+               IsVisible="{Binding Category}" />
+        <CollectionView ItemsSource="{Binding Products}">
+            <CollectionView.EmptyView>
+                <Label Text="Geen producten in deze categorie." HorizontalOptions="Center" />
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="8" ColumnDefinitions="Auto,*,Auto">
+                        <Label Text="{Binding Name}" FontAttributes="Bold" />
+                        <Label Grid.Column="1" Text="{Binding Stock}" HorizontalTextAlignment="Center" />
+                        <Label Grid.Column="2" Text="{Binding Price, StringFormat='€ {0:F2}'}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
 </ContentPage>

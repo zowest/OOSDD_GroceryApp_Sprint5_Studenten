@@ -13,9 +13,9 @@ public partial class ProductCategoriesViewModel : BaseViewModel
     private readonly IProductService _productService;
 
     [ObservableProperty]
-    private Category category = new Category(0, "");
+    private Category category = new(0, "");
 
-    public ObservableCollection<Product> Products { get; } = [];
+    public ObservableCollection<Product> Products { get; } = new();
 
     public ProductCategoriesViewModel(IProductCategoryService productCategoryService, IProductService productService)
     {
@@ -32,17 +32,29 @@ public partial class ProductCategoriesViewModel : BaseViewModel
     public override void Load()
     {
         Products.Clear();
-        if (Category is null) return;
+        if (Category is null || Category.Id == 0) return;
 
-        var productIds = _productCategoryService.GetProductsForCategory(Category.Id)
-                                                .ToHashSet();
+        Title = $"Producten - {Category.Name}";
 
-        var productsInCategory = _productService.GetAll()
-            .Where(p => p is not null && productIds.Contains(p.Id));
+        var productIds = (_productCategoryService.GetProductsForCategory(Category.Id) ?? Enumerable.Empty<int>())
+                         .ToHashSet();
 
-        foreach (var p in productsInCategory)
-        {
+        var query = _productService.GetAll()
+                                   .Where(p => p is not null);
+
+        if (productIds.Count > 0)
+            query = query.Where(p => productIds.Contains(p.Id));
+        else
+            query = query.Where(p => p.CategoryId == Category.Id);
+
+        foreach (var p in query.OrderBy(p => p.Name))
             Products.Add(p);
-        }
+    }
+
+    public override void OnAppearing()
+    {
+        base.OnAppearing();
+        if (Products.Count == 0 && Category is not null && Category.Id != 0)
+            Load();
     }
 }

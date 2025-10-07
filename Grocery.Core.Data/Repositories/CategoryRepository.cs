@@ -7,8 +7,8 @@ namespace Grocery.Core.Data.Repositories
     {
         private readonly List<Category> _categories = new()
         {
-            new Category(1, "Groenten"),
-            new Category(2, "Fruit"),
+            new Category(1, "Zuivel"),
+            new Category(2, "Brood"),
             new Category(3, "Dranken"),
             new Category(4, "Snacks")
         };

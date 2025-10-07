@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace Grocery.Core.Models
 {
-    public partial class Category : Model
+    public partial class Category(int id, string name) : Model(id, name)
     {
-        public Category(int id, string name) : base(id, name)
-        {
-        }
     }
 }

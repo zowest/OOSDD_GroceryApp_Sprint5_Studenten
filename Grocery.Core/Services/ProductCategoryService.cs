@@ -1,30 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Grocery.Core.Interfaces.Repositories;
 using Grocery.Core.Interfaces.Services;
 
 namespace Grocery.Core.Services
 {
-    public class ProductCategoryService : IProductCategoryService
+    public class ProductCategoryService(IProductCategoryRepository productCategoryRepository) : IProductCategoryService
     {
-        private readonly IProductCategoryRepository _productCategoryRepository;
-
-        public ProductCategoryService(IProductCategoryRepository productCategoryRepository)
-        {
-            _productCategoryRepository = productCategoryRepository;
-        }
+        private readonly IProductCategoryRepository _productCategoryRepository = productCategoryRepository;
 
         public IEnumerable<int> GetProductsForCategory(int categoryId)
         {
-            var _categoryProducts = new Dictionary<int, List<int>>
-            {
-                { 1, new List<int>{ 10, 11 } },
-                { 2, new List<int>{ 20 } }
-            };
-
-            if (_categoryProducts.TryGetValue(categoryId, out var ids))
-                return ids;
-            return Enumerable.Empty<int>();
+            return _productCategoryRepository.GetAll()
+                .Where(pc => pc.CategoryId == categoryId)
+                .Select(pc => pc.ProductId);
         }
     }
 }

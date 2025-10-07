@@ -54,6 +54,7 @@ namespace Grocery.App
             builder.Services.AddTransient<CategoryView>().AddTransient<CategoryViewModel>();
             builder.Services.AddTransient<ProductCategoriesView>().AddTransient<ProductCategoriesViewModel>();
 
+
             return builder.Build();
         }
     }
