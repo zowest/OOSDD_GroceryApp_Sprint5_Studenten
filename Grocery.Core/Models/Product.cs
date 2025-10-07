@@ -11,10 +11,10 @@ namespace Grocery.Core.Models
         public Product(int id, string name, int stock, double price) : this(id, name, stock, default, price) { }
 
         public Product(int id, string name, int stock, DateOnly shelfLife, double price) : base(id, name)
-        public Product(int id, string name, int stock, DateOnly shelfLife, double price) : base(id, name)
         {
             Stock = stock;
             ShelfLife = shelfLife;
+            Price = price;
         }
         public override string? ToString()
         {
