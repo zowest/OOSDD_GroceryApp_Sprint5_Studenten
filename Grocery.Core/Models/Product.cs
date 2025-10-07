@@ -7,7 +7,9 @@ namespace Grocery.Core.Models
         [ObservableProperty]
         public int stock;
         public DateOnly ShelfLife { get; set; }
+        
         public double Price { get; set; }
+        
         public Category? Category { get; set; }
 
         public Product(int id, string name, int stock, double price) : this(id, name, stock, default, price) { }

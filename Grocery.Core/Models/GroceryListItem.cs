@@ -16,5 +16,6 @@ namespace Grocery.Core.Models
         }
 
         public Product Product { get; set; } = new(0, "None", 0,0);
+
     }
 }
