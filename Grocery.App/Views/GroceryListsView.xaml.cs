@@ -1,4 +1,5 @@
 using Grocery.App.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Grocery.App.Views;
 
@@ -9,6 +10,8 @@ public partial class GroceryListsView : ContentPage
         InitializeComponent();
         BindingContext = viewModel;
     }
+
+
 
     protected override void OnAppearing()
     {

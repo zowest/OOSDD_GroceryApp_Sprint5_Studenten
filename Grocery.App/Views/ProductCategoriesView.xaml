@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Grocery.App.Views.ProductCategoriesView"
+             x:Name="ProductCategoriesPage"
+             Title="{Binding Title}">
+    <Grid Padding="12" RowDefinitions="Auto,*" ColumnDefinitions="*,*"
+          ColumnSpacing="16" RowSpacing="12">
+
+        <Label Grid.ColumnSpan="2"
+               Text="{Binding Category.Name}"
+               FontAttributes="Bold"
+               FontSize="16"
+               Margin="0,0,0,4" />
+
+        <Border Grid.Row="1" Grid.Column="0" Stroke="#C49B33" StrokeThickness="3" Padding="6">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="12"/>
+            </Border.StrokeShape>
+            <VerticalStackLayout Spacing="6">
+
+                <CollectionView ItemsSource="{Binding CategoryProducts}" SelectionMode="None">
+                    <CollectionView.Header>
+                        <Grid ColumnDefinitions="60,*" Padding="4" Margin="0,0,0,2">
+                            <Label Grid.Column="0" Text="Id" FontAttributes="Bold" HorizontalOptions="Center" />
+                            <Label Grid.Column="1" Text="Naam" FontAttributes="Bold" />
+                        </Grid>
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="60,*" Padding="4" BackgroundColor="{DynamicResource SecondaryColor}" Margin="2">
+                                <Label Grid.Column="0" Text="{Binding Id}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold"/>
+                                <Label Grid.Column="1" Text="{Binding Name}" VerticalOptions="Center"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Label Text="{Binding StatusMessage}" TextColor="Gray" FontSize="12" />
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- Right: All products with search -->
+        <Border Grid.Row="1" Grid.Column="1" Stroke="#C49B33" StrokeThickness="3" Padding="6">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="12"/>
+            </Border.StrokeShape>
+            <VerticalStackLayout Spacing="6">
+
+                <SearchBar
+                    Text="{Binding SearchText}"
+                    Placeholder="Zoek product..."
+                    CancelButtonColor="#C49B33"
+                    SearchCommand="{Binding ClearSearchCommand}"
+                    SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                    x:Name="searchBar" />
+
+                <CollectionView ItemsSource="{Binding FilteredProducts}" SelectionMode="None">
+                    <CollectionView.EmptyView>
+                        <Label Text="Geen producten gevonden." HorizontalOptions="Center" VerticalOptions="Center" />
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="*,Auto" Padding="4" Margin="2" BackgroundColor="{AppThemeBinding Light=#F2F2F2, Dark=#333}">
+                                <Label Text="{Binding Name}" VerticalOptions="Center"/>
+                                <Button Grid.Column="1"
+                                        Text="+"
+                                        Padding="8,0"
+                                        Command="{Binding Source={x:Reference ProductCategoriesPage}, Path=BindingContext.AddProductCommand}"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="#C49B33"
+                                        TextColor="White"
+                                        CornerRadius="6" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>
