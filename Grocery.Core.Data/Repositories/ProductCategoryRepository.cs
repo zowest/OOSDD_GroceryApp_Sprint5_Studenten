@@ -1,19 +1,35 @@
 ﻿using Grocery.Core.Interfaces.Repositories;
-using Grocery.Core.Models;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace Grocery.Core.Data.Repositories
+namespace Grocery.Core.Data.Repositories // keep data namespace
 {
-    public class ProductCategoryRepository : IProductCategoryRepository
+    // Renamed class to avoid clash with similarly named class in Grocery.Core assembly
+    public class ProductCategoryLinkRepository : IProductCategoryRepository
     {
-        public IEnumerable<ProductCategory> GetAll()
+        private readonly Dictionary<int, List<int>> _productCategory = new();
+        public void Add(int categoryId, int productId)
         {
-            return new List<ProductCategory>();
+            if (!_productCategory.TryGetValue(categoryId, out var list))
+            {
+                list = new List<int>();
+                _productCategory[categoryId] = list;
+            }
+            if (!list.Contains(productId))
+                list.Add(productId);
         }
 
         public IEnumerable<int> GetProductsForCategory(int categoryId)
         {
-            return new List<int>();
+            return _productCategory.TryGetValue(categoryId, out var list) ? list : Enumerable.Empty<int>();
+        }
+
+        public void Remove(int categoryId, int productId)
+        {
+            if (_productCategory.TryGetValue(categoryId, out var list))
+            {
+                list.Remove(productId);
+            }
         }
     }
 }

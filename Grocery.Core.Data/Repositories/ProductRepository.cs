@@ -9,10 +9,10 @@ namespace Grocery.Core.Data.Repositories
         public ProductRepository()
         {
             products = [
-                new Product(1, "Melk", 300, 1, new DateOnly(2025, 9, 25), 2.99),
-                new Product(2, "Kaas", 100, 1, new DateOnly(2025, 9, 30), 2.99),
-                new Product(3, "Brood", 400, 2, new DateOnly(2025, 9, 12), 2.99),
-                new Product(4, "Cornflakes", 0, 4, new DateOnly(2025, 12, 31), 2.50)
+                new Product(1, "Melk", 300, new DateOnly(2025, 9, 25), 2.99),
+                new Product(2, "Kaas", 100, new DateOnly(2025, 9, 30), 2.99),
+                new Product(3, "Brood", 400, new DateOnly(2025, 9, 12), 2.99),
+                new Product(4, "Cornflakes", 0, new DateOnly(2025, 12, 31), 2.50)
             ];
         }
         public List<Product> GetAll()

@@ -7,10 +7,10 @@ namespace Grocery.Core.Data.Repositories
     {
         private readonly List<Category> _categories = new()
         {
-            new Category(1, "Zuivel"),
-            new Category(2, "Brood"),
-            new Category(3, "Dranken"),
-            new Category(4, "Snacks")
+            new(1, "Zuivel"),
+            new(2, "Brood"),
+            new(3, "Dranken"),
+            new(4, "Snacks")
         };
 
         public IEnumerable<Category> GetAll() => _categories;

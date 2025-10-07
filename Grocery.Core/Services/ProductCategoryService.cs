@@ -5,15 +5,15 @@ using Grocery.Core.Interfaces.Services;
 
 namespace Grocery.Core.Services
 {
-    public class ProductCategoryService(IProductCategoryRepository productCategoryRepository) : IProductCategoryService
+    public class ProductCategoryService : IProductCategoryService
     {
-        private readonly IProductCategoryRepository _productCategoryRepository = productCategoryRepository;
-
-        public IEnumerable<int> GetProductsForCategory(int categoryId)
+        private readonly IProductCategoryRepository _repository;
+        public ProductCategoryService(IProductCategoryRepository repository)
         {
-            return _productCategoryRepository.GetAll()
-                .Where(pc => pc.CategoryId == categoryId)
-                .Select(pc => pc.ProductId);
+            _repository = repository;
         }
+        public IEnumerable<int> GetProductsForCategory(int categoryId) => _repository.GetProductsForCategory(categoryId);
+        public void AddProductToCategory(int categoryId, int productId) => _repository.Add(categoryId, productId);
+        public void RemoveProductFromCategory(int categoryId, int productId) => _repository.Remove(categoryId, productId);
     }
 }
