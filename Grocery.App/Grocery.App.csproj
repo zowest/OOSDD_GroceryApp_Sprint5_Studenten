@@ -91,6 +91,9 @@
 	  <MauiXaml Update="Views\BoughtProductsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Category.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\ChangeColorView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
